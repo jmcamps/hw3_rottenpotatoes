@@ -41,7 +41,16 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   And I should not see "Chicken Run"
 
 Scenario: no ratings selected
-  # see assignment
+  When I uncheck the following ratings: PG, R, PG-13, NC-17, G
+  # enter step to "submit" the search form on the homepage
+  And I press "Refresh"
+  # enter step(s) to ensure that all of the movies are not visible
+  Then I should not see any movie
 
 Scenario: all ratings selected
-  # see assignment
+  # enter step(s) to check all checkboxes
+  When I check the following ratings: PG, R, PG-13, NC-17, G
+  # enter step to "submit" the search form on the homepage
+  And I press "Refresh"
+  # enter step(s) to ensure that all of the movies are visible
+  Then I should see all of the movies

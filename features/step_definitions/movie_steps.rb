@@ -29,4 +29,14 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
   rating_list.split(/, /).each do |option|    
     step %Q{I #{uncheck}check "ratings_#{option}"}
   end 
-end  
+end
+
+Then /^I should see all of the movies$/ do 
+  rows = page.all("table#movies tr").count-1  
+  assert rows == Movie.all.count  
+end
+
+Then /^I should not see any movie$/ do 
+  rows = page.all("table#movies tr").count-1  
+  assert rows == 0  
+end
